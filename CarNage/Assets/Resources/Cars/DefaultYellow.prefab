@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 4512231278093508}
   - component: {fileID: 54123496128808176}
   - component: {fileID: 114156501235656344}
+  - component: {fileID: 114367185819716834}
   m_Layer: 0
   m_Name: DefaultYellow
   m_TagString: Untagged
@@ -1233,7 +1234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea9101737fde3242bb785791503addd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints: []
   wheelColliders:
   - {fileID: 146502310885213032}
   - {fileID: 146140535367102574}
@@ -1245,23 +1245,8 @@ MonoBehaviour:
   - {fileID: 4641976916246988}
   - {fileID: 4180064194827568}
   centerOfMass: {fileID: 4566640206112442}
-  m_rigidBody: {fileID: 0}
-  destroyedCar: {fileID: 1545015109712780, guid: 40aef03003b587848af668904eb7501f,
-    type: 2}
-  useTireMeshes: 0
-  mass: 250
-  maxSpeed: 200
-  maxTorque: 1200
-  turnForce: 75
-  maxBrakeTorque: 20000
-  keyboardEnabled: 1
-  healthBar: {fileID: 114809592307987218}
-  startingHealth: 100
-  health: 0
-  damage: 20
-  immuneCooldown: 3
-  controller: p1
-  carInitialised: 0
+  rigidBody: {fileID: 0}
+  carData: {fileID: 11400000, guid: 2321a9894c9dce14393b5a1d053936c2, type: 2}
   style:
     m_Name: 
     m_Normal:
@@ -1330,6 +1315,23 @@ MonoBehaviour:
     m_StretchWidth: 1
     m_StretchHeight: 0
   debugMode: 0
+--- !u!114 &114367185819716834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1988745800793026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d77e4990af32e0459ccac503eb4e71c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_steer: 0
+  m_currentSpeed: 0
+  m_accelerate: 0
+  m_brake: 0
+  m_handBrake: 0
+  m_controllerID: 0
 --- !u!114 &114454921858979536
 MonoBehaviour:
   m_ObjectHideFlags: 1

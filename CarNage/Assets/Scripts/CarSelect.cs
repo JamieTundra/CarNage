@@ -3,19 +3,37 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PlayerSelect : MonoBehaviour {
+public class CarSelect : MonoBehaviour {
 
+    public static int m_numberOfPlayers;
     public static GameObject[] carHolder;
     public float rotationSpeed = 60f;
     int carHolderIndex = 0;
     public GameObject currentPreview;
+    public int controllerID;
+    public string playerName;
     Vector3 previewPosition;
     public bool debugMode = false;
+    bool layoutSetup = false;
+    int playersReady = 0;
 
-    void Start()
+    private void Start()
     {
+        SetupLayout();
+    }
+
+    public void SetPlayers(int numberOfPlayers)
+    {
+        m_numberOfPlayers = numberOfPlayers;
+    }
+
+    public void SetupLayout()
+    {
+        // Code that sets up layout
         // some code that finds out what player we are
         // for now we hard code that we are PlayerOne
+        playerName = "PlayerOne";
+        controllerID = 1;
 
         previewPosition = new Vector3(-6.1f, 0.5f, 0f);
 
@@ -23,29 +41,44 @@ public class PlayerSelect : MonoBehaviour {
         currentPreview = Instantiate(carHolder[carHolderIndex], previewPosition, Quaternion.identity) as GameObject;
         currentPreview.GetComponent<Rigidbody>().isKinematic = true;
         currentPreview.GetComponent<CarController>().enabled = false;
+        currentPreview.GetComponent<InputHandler>().enabled = false;
         currentPreview.GetComponentInChildren<Canvas>().enabled = false;
+
+        layoutSetup = true;
+        Debug.Log(m_numberOfPlayers);
     }
     
     void Update()
     {
-        currentPreview.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
-
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (layoutSetup)
         {
-            UpdatePreview(1, previewPosition);
+            currentPreview.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                UpdatePreview(1, previewPosition);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                UpdatePreview(-1, previewPosition);
+            }
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                FindObjectOfType<PlayerManager>().CreatePlayer(playerName, controllerID, currentPreview);
+                playersReady++;
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (m_numberOfPlayers != 0)
         {
-            UpdatePreview(-1, previewPosition);
+            if (playersReady == m_numberOfPlayers)
+            {
+                SceneManager.LoadScene("MapSelect");
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            //Save selection
-            print("Save selection");
-        }
     }
 
     void UpdatePreview(int direction, Vector3 previewPosition)
@@ -70,6 +103,7 @@ public class PlayerSelect : MonoBehaviour {
         currentPreview = Instantiate(carHolder[carHolderIndex], previewPosition, Quaternion.Euler(spawnRotation));
         currentPreview.GetComponent<Rigidbody>().isKinematic = true;
         currentPreview.GetComponent<CarController>().enabled = false;
+        currentPreview.GetComponent<InputHandler>().enabled = false;
         currentPreview.GetComponentInChildren<Canvas>().enabled = false;
     }
 

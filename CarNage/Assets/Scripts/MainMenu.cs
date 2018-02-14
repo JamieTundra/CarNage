@@ -28,6 +28,7 @@ public class MainMenu : MonoBehaviour {
                 break;
         }
 
-        SceneManager.LoadScene("PlayerSelect");
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<CarSelect>().SetPlayers(numberOfPlayers);
+        SceneManager.LoadScene("CarSelect");
     }
 }

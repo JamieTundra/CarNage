@@ -13,6 +13,7 @@ TagManager:
   - SidePosition
   - PlayerThree
   - PlayerFour
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

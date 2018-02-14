@@ -15,6 +15,6 @@ public class MapSelect : MonoBehaviour {
     {
         string mapName = EventSystem.current.currentSelectedGameObject.name;
         Debug.Log("Attempting to load: Map_" + mapName);
-        //SceneManager.LoadScene("Map_" + mapName);
+        SceneManager.LoadScene("Map_" + mapName);
     }
 }
