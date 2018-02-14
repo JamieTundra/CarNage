@@ -6,29 +6,35 @@ public class MainMenu : MonoBehaviour {
 
     public static int numberOfPlayers;
 
-    public void LoadPlayerSelect()
+    void StorePlayerAmount()
     {
         string players = EventSystem.current.currentSelectedGameObject.name;
 
         switch (players)
         {
             case "SinglePlayer":
-                numberOfPlayers = 1;
+                PlayerManager.instance.numberOfPlayers = 1;
+                LoadMapSelect();
                 break;
             case "2p":
-                numberOfPlayers = 2;
+                PlayerManager.instance.numberOfPlayers = 2;
+                LoadMapSelect();
                 break;
             case "3p":
-                numberOfPlayers = 3;
+                PlayerManager.instance.numberOfPlayers = 3;
+                LoadMapSelect();
                 break;
             case "4p":
-                numberOfPlayers = 4;
+                PlayerManager.instance.numberOfPlayers = 4;
+                LoadMapSelect();
                 break;
             default:
                 break;
         }
+    }
 
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<CarSelect>().SetPlayers(numberOfPlayers);
-        SceneManager.LoadScene("CarSelect");
+    void LoadMapSelect()
+    {
+        SceneManager.LoadScene("MapSelect");
     }
 }
