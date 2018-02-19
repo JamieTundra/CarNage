@@ -5,49 +5,42 @@ using UnityEngine;
 public class CarPreview : MonoBehaviour {
 
     public static GameObject[] carHolder;
+    public GameObject previewHolder;
     public float rotationSpeed = 60f;
     int carHolderIndex = 0;
     public GameObject currentPreview;
     Vector3 previewPosition;
-
     public bool debugMode = false;
-    bool layoutSetup = false;
-    int playersReady = 0;
+    Player player;
 
-    private void GeneratePreview(Player p)
+    private void Start()
     {
-        // Code that sets up layout
-        // some code that finds out what player we are
-
-        previewPosition = new Vector3(-6.1f, 0.5f, 0f);
         carHolder = Resources.LoadAll<GameObject>("Cars");
-        currentPreview = Instantiate(carHolder[carHolderIndex], previewPosition, Quaternion.identity) as GameObject;
-        currentPreview.GetComponent<Rigidbody>().isKinematic = true;
-        currentPreview.GetComponent<CarController>().enabled = false;
-        currentPreview.GetComponent<InputHandler>().enabled = false;
-        currentPreview.GetComponentInChildren<Canvas>().enabled = false;
+        previewHolder = this.gameObject;
+        int playerID = int.Parse(previewHolder.name.Substring(6, 1)) - 1;
+        Debug.Log(playerID);
+        player = PlayerManager.instance.Players[playerID];
     }
 
     void Update()
     {
-        if (layoutSetup)
+        currentPreview = transform.GetChild(0).gameObject;
+        currentPreview.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
+        previewPosition = currentPreview.transform.position;
+
+        if (Input.GetAxis(player.controllerID + "LAnalogX") > 0)
         {
-            currentPreview.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
+            UpdatePreview(1, previewPosition);
+        }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                UpdatePreview(1, previewPosition);
-            }
+        if (Input.GetAxis(player.controllerID + "LAnalogX") < 0)
+        {
+            UpdatePreview(-1, previewPosition);
+        }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                UpdatePreview(-1, previewPosition);
-            }
-
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                // Store the chosen car
-            }
+        if (Input.GetButton(player.controllerID + "ABtn"))
+        {
+            player.playerReady = true;
         }
     }
 
@@ -70,11 +63,13 @@ public class CarPreview : MonoBehaviour {
             //Debug.Log(carHolderIndex);
         }
 
-        currentPreview = Instantiate(carHolder[carHolderIndex], previewPosition, Quaternion.Euler(spawnRotation));
+        currentPreview = Instantiate(carHolder[carHolderIndex], previewPosition, Quaternion.Euler(spawnRotation)) as GameObject;
+        currentPreview.transform.SetParent(GameObject.Find(player.playerName + "Preview").transform);
         currentPreview.GetComponent<Rigidbody>().isKinematic = true;
         currentPreview.GetComponent<CarController>().enabled = false;
         currentPreview.GetComponent<InputHandler>().enabled = false;
         currentPreview.GetComponentInChildren<Canvas>().enabled = false;
+        player.carID = currentPreview.name;
     }
 
     void OnGUI()
@@ -85,5 +80,4 @@ public class CarPreview : MonoBehaviour {
         }
 
     }
-}
 }

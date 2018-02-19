@@ -51,6 +51,7 @@ public class Player
     public int controllerID;
     public string carID;
     public string tireID;
+    public bool playerReady;
 }
 
 

@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class InitialiseLevel : MonoBehaviour {
 
-    PlayerManager playerManager;
     List<GameObject> spawnPoints = new List<GameObject>();
 
     void Start()
     {
-        playerManager = GetComponent<PlayerManager>();
         Init();
         Debug.Log("Init");
     }
@@ -29,10 +27,10 @@ public class InitialiseLevel : MonoBehaviour {
         }*/
 
 
-        foreach (Player player in playerManager.players)
+        foreach (Player player in PlayerManager.instance.Players)
         {
-            string spawnName = player.m_playerName + "Spawn";
-            Debug.Log(player.m_playerName);
+            string spawnName = player.playerName + "Spawn";
+            Debug.Log(player.playerName);
 
             for (int i = 0; i < spawnPoints.Count; i++)
             {
@@ -48,8 +46,10 @@ public class InitialiseLevel : MonoBehaviour {
 
     void SpawnPlayers(GameObject spawn, Player player)
     {
-        GameObject newPlayer = Instantiate(player.m_selectedCar, spawn.transform.position, Quaternion.identity) as GameObject;
-        newPlayer.tag = player.m_playerName;
-        newPlayer.GetComponent<InputHandler>().m_controllerID = player.m_controllerID;
+        GameObject chosenCar = Resources.Load("Cars/" + player.carID) as GameObject;
+
+        GameObject newPlayer = Instantiate(chosenCar, spawn.transform.position, Quaternion.identity) as GameObject;
+        newPlayer.tag = player.playerName;
+        newPlayer.GetComponent<InputHandler>().m_controllerID = player.controllerID;
     }
 }

@@ -10,7 +10,7 @@ public class CarController : MonoBehaviour
     public Rigidbody rigidBody;
 
     // Car variables
-    public CarData carData;
+    public Car carData;
     float mass;
     float maxSpeed;
     float maxTorque;

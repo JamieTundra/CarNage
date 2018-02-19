@@ -17,9 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map_Debug.unity
     guid: 6ed095668ddd9d64fbfee09d48aa6472
-  - enabled: 1
-    path: Assets/Scenes/Map_Arena.unity
+  - enabled: 0
+    path: 
     guid: 6e14cf3a1aadc354b948e6bd069104ae
-  - enabled: 1
-    path: Assets/Scenes/Map_Track.unity
+  - enabled: 0
+    path: 
     guid: d890ebca061e6754bb90ce51e1e96f9b
