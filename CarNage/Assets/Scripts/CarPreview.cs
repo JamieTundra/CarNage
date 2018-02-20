@@ -6,11 +6,13 @@ public class CarPreview : MonoBehaviour
 
     public static GameObject[] carHolder;
     public GameObject previewHolder;
+    public GameObject previewMask;
     public float rotationSpeed = 60f;
     int carHolderIndex = 0;
     public GameObject currentPreview;
     Vector3 previewPosition;
     public bool debugMode = false;
+    [SerializeField]
     Player player;
     bool delayTimerOn = false;
 
@@ -18,38 +20,63 @@ public class CarPreview : MonoBehaviour
     {
         carHolder = Resources.LoadAll<GameObject>("Cars");
         previewHolder = this.gameObject;
+        GameObject canvas = GameObject.Find("Canvas");
         int playerID = int.Parse(previewHolder.name.Substring(6, 1)) - 1;
-        Debug.Log(playerID);
+        foreach (Transform preview in canvas.transform)
+        {
+            if (preview.name == "Player" + (playerID + 1) + "PreviewMask")
+            {
+                previewMask = preview.gameObject;
+            }
+        }
         player = PlayerManager.instance.Players[playerID];
+
     }
 
     void Update()
     {
-        currentPreview = transform.GetChild(0).gameObject;
-        currentPreview.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
-        previewPosition = currentPreview.transform.position;
-
-        if (Input.GetAxis(player.controllerID + "LAnalogX") > 0 || Input.GetAxis(player.controllerID + "DPadX") > 0)
+        if (player.playerReady == true)
         {
-            if (!delayTimerOn)
+            if (Input.GetButtonUp(player.controllerID + "AButton") || Input.GetButtonUp(player.controllerID + "BButton"))
             {
-                StartCoroutine(PreviewDelay());
-                UpdatePreview(1, previewPosition);
+                StopAllCoroutines();
+                previewMask.SetActive(false);
+                delayTimerOn = false;
+                player.playerReady = false;
             }
         }
-
-        if (Input.GetAxis(player.controllerID + "LAnalogX") < 0 || Input.GetAxis(player.controllerID + "DPadX") < 0)
+        else
         {
-            if (!delayTimerOn)
+            currentPreview = transform.GetChild(0).gameObject;
+            currentPreview.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
+            previewPosition = currentPreview.transform.position;
+
+            if (Input.GetButtonUp(player.controllerID + "AButton"))
             {
-                StartCoroutine(PreviewDelay());
-                UpdatePreview(-1, previewPosition);
+                StopAllCoroutines();
+                delayTimerOn = false;
+                currentPreview.transform.eulerAngles = new Vector3(0f, -150f, 0f);
+                previewMask.SetActive(true);
+                player.playerReady = true;
             }
-        }
 
-        if (Input.GetButton(player.controllerID + "AButton"))
-        {
-            player.playerReady = true;
+            if (Input.GetAxis(player.controllerID + "LAnalogX") > 0 || Input.GetAxis(player.controllerID + "DPadX") > 0)
+            {
+                if (!delayTimerOn)
+                {
+                    StartCoroutine(PreviewDelay());
+                    UpdatePreview(1, previewPosition);
+                }
+            }
+
+            if (Input.GetAxis(player.controllerID + "LAnalogX") < 0 || Input.GetAxis(player.controllerID + "DPadX") < 0)
+            {
+                if (!delayTimerOn)
+                {
+                    StartCoroutine(PreviewDelay());
+                    UpdatePreview(-1, previewPosition);
+                }
+            }
         }
     }
 
