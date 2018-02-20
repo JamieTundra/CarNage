@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class CarSelect : MonoBehaviour {
+public class CarSelect : MonoBehaviour
+{
 
     #region Singleton
     public static CarSelect instance;

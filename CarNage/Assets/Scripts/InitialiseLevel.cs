@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class InitialiseLevel : MonoBehaviour {
+public class InitialiseLevel : MonoBehaviour
+{
 
     List<GameObject> spawnPoints = new List<GameObject>();
 
@@ -39,8 +39,8 @@ public class InitialiseLevel : MonoBehaviour {
                 {
                     SpawnPlayers(spawnPoints[i], player);
                     Debug.Log("Spawn Name Matches");
-                }               
-            }        
+                }
+            }
         }
     }
 

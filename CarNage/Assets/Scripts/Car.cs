@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu]
-public class Car : ScriptableObject {
+public class Car : ScriptableObject
+{
 
     public string m_carName;
     public float m_mass;

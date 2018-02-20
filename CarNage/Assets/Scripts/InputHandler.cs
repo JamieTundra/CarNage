@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class InputHandler : MonoBehaviour {
+public class InputHandler : MonoBehaviour
+{
 
     // Car movement
     public float m_steer;
@@ -20,10 +19,10 @@ public class InputHandler : MonoBehaviour {
 
     public void FixedUpdate()
     {
-       m_steer = Input.GetAxis(m_controllerID + "LAnalogX");
-       m_accelerate = Input.GetAxis(m_controllerID + "RTrigger");
-       m_brake = -1 * Input.GetAxis(m_controllerID + "LTrigger");
-       m_handBrake = Input.GetButton(m_controllerID + "XBtn");
+        m_steer = Input.GetAxis(m_controllerID + "LAnalogX");
+        m_accelerate = Input.GetAxis(m_controllerID + "RTrigger");
+        m_brake = -1 * Input.GetAxis(m_controllerID + "LTrigger");
+        m_handBrake = Input.GetButton(m_controllerID + "XBtn");
 
         carController.Steer(m_steer);
         carController.Drive(m_handBrake, m_brake, m_accelerate);

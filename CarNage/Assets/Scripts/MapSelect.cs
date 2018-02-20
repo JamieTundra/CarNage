@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MapSelect : MonoBehaviour {
+public class MapSelect : MonoBehaviour
+{
 
     public Button debugButton;
     public Button arenaButton;

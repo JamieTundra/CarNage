@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 //using UnityEngine.UI;
 //using System.Collections.Generic;
 
-public class MainMenu : MonoBehaviour {
+public class MainMenu : MonoBehaviour
+{
 
     ////public Button singlePlayerButton;
     ////public Button twoPlayerButton;

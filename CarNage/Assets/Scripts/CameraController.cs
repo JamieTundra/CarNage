@@ -133,7 +133,7 @@ public class CameraController : MonoBehaviour
 
     void DestroyCamera()
     {
-        Debug.Log(cameraNameToPlayer +  " not found, deleting camera: " + cameraName);
+        Debug.Log(cameraNameToPlayer + " not found, deleting camera: " + cameraName);
         Destroy(gameObject);
         --camerasToSetup;
     }

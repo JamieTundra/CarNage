@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CarPreview : MonoBehaviour {
+public class CarPreview : MonoBehaviour
+{
 
     public static GameObject[] carHolder;
     public GameObject previewHolder;
@@ -12,6 +12,7 @@ public class CarPreview : MonoBehaviour {
     Vector3 previewPosition;
     public bool debugMode = false;
     Player player;
+    bool delayTimerOn = false;
 
     private void Start()
     {
@@ -28,20 +29,36 @@ public class CarPreview : MonoBehaviour {
         currentPreview.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
         previewPosition = currentPreview.transform.position;
 
-        if (Input.GetAxis(player.controllerID + "LAnalogX") > 0)
+        if (Input.GetAxis(player.controllerID + "LAnalogX") > 0 || Input.GetAxis(player.controllerID + "DPadX") > 0)
         {
-            UpdatePreview(1, previewPosition);
+            if (!delayTimerOn)
+            {
+                StartCoroutine(PreviewDelay());
+                UpdatePreview(1, previewPosition);
+            }
         }
 
-        if (Input.GetAxis(player.controllerID + "LAnalogX") < 0)
+        if (Input.GetAxis(player.controllerID + "LAnalogX") < 0 || Input.GetAxis(player.controllerID + "DPadX") < 0)
         {
-            UpdatePreview(-1, previewPosition);
+            if (!delayTimerOn)
+            {
+                StartCoroutine(PreviewDelay());
+                UpdatePreview(-1, previewPosition);
+            }
         }
 
-        if (Input.GetButton(player.controllerID + "ABtn"))
+        if (Input.GetButton(player.controllerID + "AButton"))
         {
             player.playerReady = true;
         }
+    }
+
+
+    IEnumerator PreviewDelay()
+    {
+        delayTimerOn = true;
+        yield return new WaitForSeconds(0.5f);
+        delayTimerOn = false;
     }
 
     void UpdatePreview(int direction, Vector3 previewPosition)

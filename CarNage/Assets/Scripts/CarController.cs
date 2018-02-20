@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
@@ -52,7 +51,7 @@ public class CarController : MonoBehaviour
         if (currentSpeed < maxSpeed && !handBrake)
         {
             if (brake == 0)
-            {  
+            {
                 wheelColliders[0].motorTorque = maxTorque * accelerate;
                 wheelColliders[1].motorTorque = maxTorque * accelerate;
             }
