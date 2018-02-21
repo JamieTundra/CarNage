@@ -6,7 +6,7 @@ public class CarPreview : MonoBehaviour
 
     public static GameObject[] carHolder;
     public GameObject previewHolder;
-    public GameObject previewMask;
+    public GameObject previewOverlay;
     public float rotationSpeed = 60f;
     int carHolderIndex = 0;
     public GameObject currentPreview;
@@ -22,42 +22,38 @@ public class CarPreview : MonoBehaviour
         previewHolder = this.gameObject;
         GameObject canvas = GameObject.Find("Canvas");
         int playerID = int.Parse(previewHolder.name.Substring(6, 1)) - 1;
-        foreach (Transform preview in canvas.transform)
-        {
-            if (preview.name == "Player" + (playerID + 1) + "PreviewMask")
-            {
-                previewMask = preview.gameObject;
-            }
-        }
+        previewOverlay = transform.GetChild(0).gameObject;
         player = PlayerManager.instance.Players[playerID];
 
     }
 
     void Update()
     {
+        currentPreview = transform.GetChild(1).gameObject;
+        currentPreview.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
+        previewPosition = currentPreview.transform.position;
+
         if (player.playerReady == true)
         {
             if (Input.GetButtonUp(player.controllerID + "AButton") || Input.GetButtonUp(player.controllerID + "BButton"))
             {
                 StopAllCoroutines();
-                previewMask.SetActive(false);
+                previewOverlay.SetActive(false);
                 delayTimerOn = false;
                 player.playerReady = false;
+                CarSelect.instance.playersReady--;
             }
         }
         else
         {
-            currentPreview = transform.GetChild(0).gameObject;
-            currentPreview.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
-            previewPosition = currentPreview.transform.position;
 
             if (Input.GetButtonUp(player.controllerID + "AButton"))
             {
                 StopAllCoroutines();
                 delayTimerOn = false;
-                currentPreview.transform.eulerAngles = new Vector3(0f, -150f, 0f);
-                previewMask.SetActive(true);
+                previewOverlay.SetActive(true);
                 player.playerReady = true;
+                CarSelect.instance.playersReady++;
             }
 
             if (Input.GetAxis(player.controllerID + "LAnalogX") > 0 || Input.GetAxis(player.controllerID + "DPadX") > 0)

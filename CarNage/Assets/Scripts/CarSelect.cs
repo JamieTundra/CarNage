@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public class CarSelect : MonoBehaviour
 {
@@ -7,6 +9,9 @@ public class CarSelect : MonoBehaviour
     public static CarSelect instance;
     public int playersReady = 0;
     public Vector3[] previewPoints = new Vector3[10];
+    float countdownValue = 5f;
+    float currCountdownValue;
+    public TextMeshProUGUI countdownText;
 
     private void Awake()
     {
@@ -15,6 +20,19 @@ public class CarSelect : MonoBehaviour
 
         SetupPreviewPoints();
         SetupPlayers(PlayerManager.instance.numberOfPlayers);
+    }
+
+    private void Update()
+    {
+        if (playersReady == PlayerManager.instance.numberOfPlayers)
+        {
+            StartCoroutine(StartCountdown(countdownValue));
+        }
+        else
+        {
+            StopAllCoroutines();
+            countdownText.gameObject.SetActive(false);
+        }
     }
 
     public void SetupPlayers(int numberOfPlayers)
@@ -79,14 +97,31 @@ public class CarSelect : MonoBehaviour
 
     public void GeneratePreview(Player p, Vector3 previewPoint)
     {
-        GameObject currentPreview = Instantiate(Resources.Load("Cars/DefaultBlue"), previewPoint, Quaternion.identity) as GameObject;
+        GameObject currentPreview = Instantiate(Resources.Load("Cars/DefaultBlue"), new Vector3(0f, -0.5f, 0f), Quaternion.identity) as GameObject;
         currentPreview.transform.SetParent(GameObject.Find(p.playerName + "Preview").transform);
         currentPreview.transform.parent.gameObject.AddComponent<CarPreview>();
+        currentPreview.transform.parent.gameObject.transform.position = previewPoint;
         currentPreview.GetComponent<Rigidbody>().isKinematic = true;
         currentPreview.GetComponent<CarController>().enabled = false;
         currentPreview.GetComponent<InputHandler>().enabled = false;
         currentPreview.GetComponentInChildren<Canvas>().enabled = false;
         p.carID = currentPreview.name;
     }
+
+    IEnumerator StartCountdown(float countDownFrom)
+    {
+        currCountdownValue = countdownValue;
+        while (currCountdownValue >= 0)
+        {
+            countdownText.text = ("STARTING IN: " + currCountdownValue + " SECONDS");
+            countdownText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1.0f);
+            currCountdownValue--;
+        }
+
+        Debug.Log("Time to start the game");
+
+    }
+
     #endregion
 }
