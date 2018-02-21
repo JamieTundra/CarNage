@@ -41,7 +41,7 @@ public class CarPreview : MonoBehaviour
                 previewOverlay.SetActive(false);
                 delayTimerOn = false;
                 player.playerReady = false;
-                CarSelect.instance.playersReady--;
+                PreviewManager.instance.playersReady--;
             }
         }
         else
@@ -53,7 +53,7 @@ public class CarPreview : MonoBehaviour
                 delayTimerOn = false;
                 previewOverlay.SetActive(true);
                 player.playerReady = true;
-                CarSelect.instance.playersReady++;
+                PreviewManager.instance.playersReady++;
             }
 
             if (Input.GetAxis(player.controllerID + "LAnalogX") > 0 || Input.GetAxis(player.controllerID + "DPadX") > 0)
@@ -108,7 +108,6 @@ public class CarPreview : MonoBehaviour
         currentPreview.GetComponent<Rigidbody>().isKinematic = true;
         currentPreview.GetComponent<CarController>().enabled = false;
         currentPreview.GetComponent<InputHandler>().enabled = false;
-        currentPreview.GetComponentInChildren<Canvas>().enabled = false;
         player.carID = currentPreview.name;
     }
 

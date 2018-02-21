@@ -22,7 +22,7 @@ public class CarController : MonoBehaviour
     public GUIStyle style;
     public bool debugMode;
 
-    public void Start()
+    public void Awake()
     {
         Init();
     }
@@ -35,6 +35,9 @@ public class CarController : MonoBehaviour
         maxTorque = carData.m_maxTorque;
         turnForce = carData.m_turnForce;
         maxBrakeTorque = carData.m_maxBrakeTorque;
+
+        this.GetComponent<InputHandler>().m_carInit = true;
+
     }
 
     public void Steer(float steer)
@@ -44,22 +47,14 @@ public class CarController : MonoBehaviour
         wheelColliders[1].steerAngle = finalAngle;
     }
 
-    public void Drive(bool handBrake, float brake, float accelerate)
+    public void Drive(bool handBrake, float drivingForce)
     {
         currentSpeed = 2.23694f * rigidBody.velocity.magnitude;
 
         if (currentSpeed < maxSpeed && !handBrake)
         {
-            if (brake == 0)
-            {
-                wheelColliders[0].motorTorque = maxTorque * accelerate;
-                wheelColliders[1].motorTorque = maxTorque * accelerate;
-            }
-            else
-            {
-                wheelColliders[0].motorTorque = maxTorque * brake;
-                wheelColliders[1].motorTorque = maxTorque * brake;
-            }
+            wheelColliders[0].motorTorque = maxTorque * drivingForce;
+            wheelColliders[1].motorTorque = maxTorque * drivingForce;
         }
         else
         {

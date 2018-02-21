@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 124704821116461918}
   - component: {fileID: 114661196400873474}
   m_Layer: 11
-  m_Name: PlayerFourCamera
+  m_Name: Player4Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 81343909324978286}
   - component: {fileID: 114193904212113892}
   m_Layer: 11
-  m_Name: PlayerOneCamera
+  m_Name: Player1Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 124122387005969032}
   - component: {fileID: 114936674206158240}
   m_Layer: 11
-  m_Name: PlayerThreeCamera
+  m_Name: Player3Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 124530287778932438}
   - component: {fileID: 114838493899182262}
   m_Layer: 11
-  m_Name: PlayerTwoCamera
+  m_Name: Player2Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
