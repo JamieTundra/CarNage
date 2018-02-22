@@ -5,7 +5,6 @@ public class InputHandler : MonoBehaviour
 
     // Car movement
     public float m_steer;
-    public float m_currentSpeed;
     public float m_drivingForce;
     public bool m_handBrake;
     public int m_controllerID;
@@ -23,7 +22,7 @@ public class InputHandler : MonoBehaviour
         if (m_carInit)
         {
             m_steer = Input.GetAxis(m_controllerID + "LAnalogX");
-            m_drivingForce = Input.GetAxis(m_controllerID + "Triggers");
+            m_drivingForce = Mathf.RoundToInt(Input.GetAxis(m_controllerID + "Triggers"));
             m_handBrake = Input.GetButton(m_controllerID + "XButton");
 
             carController.Steer(m_steer);

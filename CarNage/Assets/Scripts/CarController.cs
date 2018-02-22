@@ -10,12 +10,12 @@ public class CarController : MonoBehaviour
 
     // Car variables
     public Car carData;
-    float mass;
-    float maxSpeed;
-    float maxTorque;
-    float turnForce;
-    float maxBrakeTorque;
-    float currentSpeed;
+    public float mass;
+    public float maxSpeed;
+    public float maxTorque;
+    public float turnForce;
+    public float maxBrakeTorque;
+    public float currentSpeed;
 
     // Debugging
     [HideInInspector]
@@ -49,18 +49,16 @@ public class CarController : MonoBehaviour
 
     public void Drive(bool handBrake, float drivingForce)
     {
-        currentSpeed = 2.23694f * rigidBody.velocity.magnitude;
+        Vector3 normalDirection = rigidBody.velocity.normalized;
 
-        if (currentSpeed < maxSpeed && !handBrake)
+        currentSpeed = 2.23694f * rigidBody.velocity.magnitude * (-1 * direction.x);
+
+        // Check if we're allowed to accelerate
+        if (currentSpeed < maxSpeed || currentSpeed > -maxSpeed)
         {
-            wheelColliders[0].motorTorque = maxTorque * drivingForce;
-            wheelColliders[1].motorTorque = maxTorque * drivingForce;
+
         }
-        else
-        {
-            wheelColliders[0].motorTorque = 0;
-            wheelColliders[1].motorTorque = 0;
-        }
+
     }
 
     public void Brake(bool handBrake)
