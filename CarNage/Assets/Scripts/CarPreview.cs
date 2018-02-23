@@ -20,7 +20,6 @@ public class CarPreview : MonoBehaviour
     {
         carHolder = Resources.LoadAll<GameObject>("Cars");
         previewHolder = this.gameObject;
-        GameObject canvas = GameObject.Find("Canvas");
         int playerID = int.Parse(previewHolder.name.Substring(6, 1)) - 1;
         previewOverlay = transform.GetChild(0).gameObject;
         player = PlayerManager.instance.Players[playerID];

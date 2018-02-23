@@ -22,7 +22,7 @@ public class CarController : MonoBehaviour
     public GUIStyle style;
     public bool debugMode;
 
-    public void Awake()
+    public void Start()
     {
         Init();
     }
@@ -35,6 +35,7 @@ public class CarController : MonoBehaviour
         maxTorque = carData.m_maxTorque;
         turnForce = carData.m_turnForce;
         maxBrakeTorque = carData.m_maxBrakeTorque;
+        rigidBody.centerOfMass = centerOfMass.transform.position;
 
         this.GetComponent<InputHandler>().m_carInit = true;
 

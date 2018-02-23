@@ -462,7 +462,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1638989099118316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.2}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4523006632260460}
@@ -1182,7 +1182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_steer: 0
-  m_currentSpeed: 0
   m_drivingForce: 0
   m_handBrake: 0
   m_controllerID: 0
@@ -1211,6 +1210,12 @@ MonoBehaviour:
   centerOfMass: {fileID: 4090411731966606}
   rigidBody: {fileID: 0}
   carData: {fileID: 11400000, guid: be562fc1037d4454ab0bf177a4891c26, type: 2}
+  mass: 0
+  maxSpeed: 0
+  maxTorque: 0
+  turnForce: 0
+  maxBrakeTorque: 0
+  currentSpeed: 0
   style:
     m_Name: 
     m_Normal:
