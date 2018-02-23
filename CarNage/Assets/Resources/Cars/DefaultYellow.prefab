@@ -1194,6 +1194,12 @@ MonoBehaviour:
   centerOfMass: {fileID: 4566640206112442}
   rigidBody: {fileID: 0}
   carData: {fileID: 11400000, guid: 2321a9894c9dce14393b5a1d053936c2, type: 2}
+  mass: 0
+  maxSpeed: 0
+  maxTorque: 0
+  turnForce: 0
+  maxBrakeTorque: 0
+  currentSpeed: 0
   style:
     m_Name: 
     m_Normal:
@@ -1274,7 +1280,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_steer: 0
-  m_currentSpeed: 0
   m_drivingForce: 0
   m_handBrake: 0
   m_controllerID: 0
