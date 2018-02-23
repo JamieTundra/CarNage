@@ -14,7 +14,10 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         carController = GetComponent<CarController>();
-        m_controllerID = int.Parse(this.tag.Substring(6, 1));
+        if (m_controllerID == 0)
+        {
+            m_controllerID = int.Parse(this.tag.Substring(6, 1));
+        }
     }
 
     public void FixedUpdate()

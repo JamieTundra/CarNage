@@ -56,7 +56,8 @@ public class CarController : MonoBehaviour
         // Check if we're allowed to accelerate
         if (currentSpeed < maxSpeed || currentSpeed > -maxSpeed)
         {
-
+            wheelColliders[0].motorTorque = maxTorque * drivingForce;
+            wheelColliders[1].motorTorque = maxTorque * drivingForce;
         }
 
     }
@@ -70,6 +71,8 @@ public class CarController : MonoBehaviour
         }
         else
         {
+            wheelColliders[0].brakeTorque = 0;
+            wheelColliders[1].brakeTorque = 0;
             wheelColliders[2].brakeTorque = 0;
             wheelColliders[3].brakeTorque = 0;
         }
