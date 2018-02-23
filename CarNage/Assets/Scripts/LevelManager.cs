@@ -48,6 +48,7 @@ public class LevelManager : MonoBehaviour
     void SpawnPlayer(Player p)
     {
         Transform chosenSpawn = spawnPoints[p.controllerID - 1];
+        Debug.Log(chosenSpawn.position);
         string carName = p.carID.Substring(0, (p.carID.Length - 7));
         GameObject chosenCar = Resources.Load("Cars/" + carName) as GameObject;
         GameObject player = Instantiate(chosenCar, chosenSpawn.position, Quaternion.Euler(0, -90, 0));

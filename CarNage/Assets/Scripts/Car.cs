@@ -10,5 +10,7 @@ public class Car : ScriptableObject
     public float m_turnForce;
     public float m_maxTorque;
     public float m_maxBrakeTorque;
+    public float m_multiplier;
+    public bool m_isKinematic;
 
 }

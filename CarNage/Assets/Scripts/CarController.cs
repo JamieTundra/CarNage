@@ -16,13 +16,15 @@ public class CarController : MonoBehaviour
     public float turnForce;
     public float maxBrakeTorque;
     public float currentSpeed;
+    public float multiplier;
+    public bool isKinematic = false;
 
     // Debugging
     [HideInInspector]
     public GUIStyle style;
     public bool debugMode;
 
-    public void Start()
+    public void Update()
     {
         Init();
     }
@@ -30,15 +32,19 @@ public class CarController : MonoBehaviour
     public void Init()
     {
         rigidBody = GetComponent<Rigidbody>();
+        isKinematic = carData.m_isKinematic;
+        rigidBody.isKinematic = isKinematic;
         mass = carData.m_mass;
         maxSpeed = carData.m_maxSpeed;
         maxTorque = carData.m_maxTorque;
         turnForce = carData.m_turnForce;
         maxBrakeTorque = carData.m_maxBrakeTorque;
-        rigidBody.centerOfMass = centerOfMass.transform.position;
+        multiplier = carData.m_multiplier;
+        rigidBody.mass = mass;
+        rigidBody.centerOfMass = centerOfMass.localPosition;
+
 
         this.GetComponent<InputHandler>().m_carInit = true;
-
     }
 
     public void Steer(float steer)
@@ -53,12 +59,13 @@ public class CarController : MonoBehaviour
         Vector3 normalDirection = rigidBody.velocity.normalized;
 
         currentSpeed = 2.23694f * rigidBody.velocity.magnitude; //* (-1 * direction.x);
+        Debug.Log("Current Speed: " + Mathf.Round(currentSpeed) + " MPH");
 
         // Check if we're allowed to accelerate
         if (currentSpeed < maxSpeed || currentSpeed > -maxSpeed)
         {
-            wheelColliders[0].motorTorque = maxTorque * drivingForce;
-            wheelColliders[1].motorTorque = maxTorque * drivingForce;
+            wheelColliders[0].motorTorque = maxTorque * drivingForce * multiplier;
+            wheelColliders[1].motorTorque = maxTorque * drivingForce * multiplier;
         }
 
     }
