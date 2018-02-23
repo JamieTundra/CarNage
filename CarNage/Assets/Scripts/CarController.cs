@@ -51,7 +51,7 @@ public class CarController : MonoBehaviour
     {
         Vector3 normalDirection = rigidBody.velocity.normalized;
 
-        currentSpeed = 2.23694f * rigidBody.velocity.magnitude * (-1 * direction.x);
+        currentSpeed = 2.23694f * rigidBody.velocity.magnitude; //* (-1 * direction.x);
 
         // Check if we're allowed to accelerate
         if (currentSpeed < maxSpeed || currentSpeed > -maxSpeed)

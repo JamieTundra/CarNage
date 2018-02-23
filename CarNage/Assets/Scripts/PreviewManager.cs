@@ -52,7 +52,7 @@ public class PreviewManager : MonoBehaviour
 
     public void SetupPlayers(int numberOfPlayers)
     {
-        Debug.Log("Cock");
+        //Debug.Log("Cock");
         for (int i = 0; i < numberOfPlayers; i++)
         {
             Player p = new Player

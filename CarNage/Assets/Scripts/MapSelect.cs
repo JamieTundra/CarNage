@@ -32,7 +32,7 @@ public class MapSelect : MonoBehaviour
     {
         if (scene.name == "MapSelect")
         {
-            Debug.Log("Wanker");
+            //Debug.Log("Wanker");
             GameObject buttonHolder = GameObject.Find("ButtonHolder");
             debugButton = buttonHolder.transform.Find("Debug").GetComponent<Button>();
             arenaButton = buttonHolder.transform.Find("Arena").GetComponent<Button>();
