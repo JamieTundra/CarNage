@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour
     public float m_steer;
     public float m_drivingForce;
     public bool m_handBrake;
+    //public bool m_selfRight;
     public int m_controllerID;
     CarController carController;
     public bool m_carInit = false;
@@ -25,13 +26,24 @@ public class InputHandler : MonoBehaviour
         if (m_carInit)
         {
             m_steer = Input.GetAxis(m_controllerID + "LAnalogX");
-            m_drivingForce = Mathf.RoundToInt(Input.GetAxis(m_controllerID + "Triggers"));
+            m_drivingForce = Input.GetAxis(m_controllerID + "Triggers");
+            //m_drivingForce = Mathf.RoundToInt(Input.GetAxis(m_controllerID + "Triggers"));
             m_handBrake = Input.GetButton(m_controllerID + "XButton");
+            //m_selfRight = Input.GetButton(m_controllerID + "YButton");
 
+            CarActions();
+        }
+
+    }
+
+    void CarActions()
+    {
+        if (!carController.selfRighting)
+        {
             carController.Steer(m_steer);
             carController.Drive(m_handBrake, m_drivingForce);
             carController.Brake(m_handBrake);
         }
-
+        //carController.SelfRight(m_selfRight);
     }
 }

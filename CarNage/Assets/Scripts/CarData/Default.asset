@@ -13,9 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_carName: Default
   m_mass: 250
-  m_maxSpeed: 100
+  m_maxWheelRPM: 750
   m_turnForce: 50
   m_maxTorque: 600
   m_maxBrakeTorque: 30000
-  m_multiplier: 1
-  m_isKinematic: 0
+  m_canSelfRight: 0
