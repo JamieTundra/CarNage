@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CarController : MonoBehaviour
@@ -8,6 +9,7 @@ public class CarController : MonoBehaviour
     public Transform[] tireMeshes = new Transform[4];
     public Transform centerOfMass;
     public Rigidbody rigidBody;
+
 
     // Car variables
     public Car carData;
@@ -34,12 +36,22 @@ public class CarController : MonoBehaviour
 
     public void Awake()
     {
-        Init();
+        InitReferences();
     }
 
-    public void Init()
+    private void Start()
+    {
+        InitValues();
+    }
+
+    private void InitReferences()
     {
         rigidBody = GetComponent<Rigidbody>();
+    }
+
+    public void InitValues()
+    {
+
         mass = carData.m_mass;
         maxWheelRPM = carData.m_maxWheelRPM;
         maxTorque = carData.m_maxTorque;
@@ -47,9 +59,7 @@ public class CarController : MonoBehaviour
         maxBrakeTorque = carData.m_maxBrakeTorque;
         rigidBody.centerOfMass = centerOfMass.transform.position;
         rigidBody.mass = mass;
-
         this.GetComponent<InputHandler>().m_carInit = true;
-
     }
 
     private void FixedUpdate()
@@ -58,7 +68,6 @@ public class CarController : MonoBehaviour
         CheckSelfRightState();
         SelfRight();
     }
-
 
     void CheckSelfRightState()
     {

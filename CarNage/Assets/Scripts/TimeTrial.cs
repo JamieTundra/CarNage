@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,18 +20,45 @@ public class TimeTrial : MonoBehaviour
     CarController carController;
     public GameObject TimeTrialValuesHolder;
 
-    private void Awake()
+    private void Start()
+    {
+        InitReferences();
+        InitTimeTrial();
+    }
+
+    private void InitReferences()
     {
         if (GameObject.FindGameObjectWithTag("TimeTrialValues") == null)
         {
-            Instantiate(TimeTrialValuesHolder);
+            GameObject go = Instantiate(TimeTrialValuesHolder);
         }
 
         car = GameObject.FindGameObjectWithTag("Player1");
         carController = car.GetComponent<CarController>();
-        car.GetComponent<InputHandler>().enabled = false;
-        InitTimeTrial();
+    }
 
+    void InitTimeTrial()
+    {
+        car.GetComponent<InputHandler>().enabled = false;
+        if (TimeTrialValues.instance.ZeroToSixtyValues.Count > 0)
+        {
+            maxMass = TimeTrialValues.instance.ZeroToSixtyValues[0].mass;
+        }
+
+        // Override car caps
+        carController.maxWheelRPM = 1500;
+        minMass = maxMass - 100;
+        if (minMass <= 50)
+        {
+            minMass = 50;
+        }
+        carController.rigidBody.mass = Mathf.Round(UnityEngine.Random.Range(100, maxMass));
+        Debug.Log(carController.rigidBody.mass);
+        chosenMass = carController.rigidBody.mass;
+        chosenToque = carController.maxTorque;
+        //Debug.Log("Chosen Mass: " + carController.rigidBody.mass);
+        car.transform.position = GameObject.FindGameObjectWithTag("TimeTrialStart").transform.position;
+        trialComplete = false;
 
     }
 
@@ -62,11 +90,10 @@ public class TimeTrial : MonoBehaviour
                     if (TimeTrialValues.instance.ZeroToSixtyValues[0].timeTaken > timeToSixty)
                     {
                         TimeTrialValues.instance.ZeroToSixtyValues.RemoveAt(0);
-
                         ZeroToSixty v = new ZeroToSixty
                         {
                             mass = chosenMass,
-                            timeTaken = timeToSixty,
+                            timeTaken = Mathf.Round(timeToSixty * 100f) / 100f,
                             torque = chosenToque,
                         };
 
@@ -89,30 +116,6 @@ public class TimeTrial : MonoBehaviour
                 SceneManager.LoadScene(scene.name);
             }
         }
-    }
-
-    void InitTimeTrial()
-    {
-        if (TimeTrialValues.instance.ZeroToSixtyValues.Count > 0)
-        {
-            maxMass = TimeTrialValues.instance.ZeroToSixtyValues[0].mass;
-        }
-
-        // Override car caps
-        carController.maxWheelRPM = 1500;
-        minMass = maxMass - 100;
-        if (minMass <= 50)
-        {
-            minMass = 50;
-        }
-        carController.rigidBody.mass = Mathf.Round(Random.Range(100, maxMass));
-        Debug.Log(carController.rigidBody.mass);
-        chosenMass = carController.rigidBody.mass;
-        chosenToque = carController.maxTorque;
-        //Debug.Log("Chosen Mass: " + carController.rigidBody.mass);
-        car.transform.position = GameObject.FindGameObjectWithTag("TimeTrialStart").transform.position;
-        trialComplete = false;
-
     }
 
     private void OnGUI()

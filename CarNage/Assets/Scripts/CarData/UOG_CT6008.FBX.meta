@@ -1,0 +1,183 @@
+fileFormatVersion: 2
+guid: 7edd2788c7b247c47b7a94db0d22d54c
+timeCreated: 1520868980
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bumpers
+    100002: CarEmblems
+    100004: CarName
+    100006: HeadlightsandBrakeLights
+    100008: LeftFrontSnowTyre
+    100010: LeftRearSnowTyre
+    100012: RightFrontSnowTyre
+    100014: RightRearSnowTyre
+    100016: Side_Mirror
+    100018: SideSkirts
+    100020: TyreStuds006
+    100022: TyreStuds007
+    100024: TyreStuds008
+    100026: TyreStuds009
+    100028: Underside
+    100030: //RootNode
+    100032: WheelRimSnow006
+    100034: WheelRimSnow007
+    100036: WheelRimSnow008
+    100038: WheelRimSnow009
+    100040: Windows
+    400000: Bumpers
+    400002: CarEmblems
+    400004: CarName
+    400006: HeadlightsandBrakeLights
+    400008: LeftFrontSnowTyre
+    400010: LeftRearSnowTyre
+    400012: RightFrontSnowTyre
+    400014: RightRearSnowTyre
+    400016: Side_Mirror
+    400018: SideSkirts
+    400020: TyreStuds006
+    400022: TyreStuds007
+    400024: TyreStuds008
+    400026: TyreStuds009
+    400028: Underside
+    400030: //RootNode
+    400032: WheelRimSnow006
+    400034: WheelRimSnow007
+    400036: WheelRimSnow008
+    400038: WheelRimSnow009
+    400040: Windows
+    2300000: Bumpers
+    2300002: CarEmblems
+    2300004: CarName
+    2300006: HeadlightsandBrakeLights
+    2300008: LeftFrontSnowTyre
+    2300010: LeftRearSnowTyre
+    2300012: RightFrontSnowTyre
+    2300014: RightRearSnowTyre
+    2300016: Side_Mirror
+    2300018: SideSkirts
+    2300020: TyreStuds006
+    2300022: TyreStuds007
+    2300024: TyreStuds008
+    2300026: TyreStuds009
+    2300028: Underside
+    2300030: //RootNode
+    2300032: WheelRimSnow006
+    2300034: WheelRimSnow007
+    2300036: WheelRimSnow008
+    2300038: WheelRimSnow009
+    2300040: Windows
+    3300000: Bumpers
+    3300002: CarEmblems
+    3300004: CarName
+    3300006: HeadlightsandBrakeLights
+    3300008: LeftFrontSnowTyre
+    3300010: LeftRearSnowTyre
+    3300012: RightFrontSnowTyre
+    3300014: RightRearSnowTyre
+    3300016: Side_Mirror
+    3300018: SideSkirts
+    3300020: TyreStuds006
+    3300022: TyreStuds007
+    3300024: TyreStuds008
+    3300026: TyreStuds009
+    3300028: Underside
+    3300030: //RootNode
+    3300032: WheelRimSnow006
+    3300034: WheelRimSnow007
+    3300036: WheelRimSnow008
+    3300038: WheelRimSnow009
+    3300040: Windows
+    4300000: UOGBody
+    4300002: LeftFrontSnowTyre
+    4300004: TyreStuds006
+    4300006: WheelRimSnow006
+    4300008: LeftRearSnowTyre
+    4300010: TyreStuds007
+    4300012: WheelRimSnow007
+    4300014: RightFrontSnowTyre
+    4300016: TyreStuds008
+    4300018: WheelRimSnow008
+    4300020: RightRearSnowTyre
+    4300022: TyreStuds009
+    4300024: WheelRimSnow009
+    4300026: Underside
+    4300028: SideSkirts
+    4300030: Side_Mirror
+    4300032: HeadlightsandBrakeLights
+    4300034: CarName
+    4300036: CarEmblems
+    4300038: Bumpers
+    4300040: Windows
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
