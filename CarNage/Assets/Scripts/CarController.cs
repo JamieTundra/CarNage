@@ -19,14 +19,17 @@ public class CarController : MonoBehaviour
     public float turnForce;
     public float maxBrakeTorque;
     public float currentSpeed;
+    public bool isOnGround;
     float averageRPM;
-    float selfRightStartTime;
-    float selfRightDelay = 3f;
-    bool selfRightTimer = false;
-    bool canSelfRight = false;
+    public bool canSelfRight = true;
     public bool selfRighting = false;
-    [SerializeField]
+    public bool clearOfGround = false;
+    Vector3 currentPosition;
+    Vector3 hoverPosition;
     Vector3 currentRotation;
+    Vector3 targetRotation;
+    float rotationTime;
+    float moveTime;
 
     // Debugging
     [HideInInspector]
@@ -62,44 +65,50 @@ public class CarController : MonoBehaviour
         this.GetComponent<InputHandler>().m_carInit = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        currentRotation = this.transform.rotation.eulerAngles;
-        CheckSelfRightState();
-        SelfRight();
-    }
+        if (selfRighting)
+        {
+            moveTime += Time.deltaTime * 2f;
 
-    void CheckSelfRightState()
-    {
-        if (!selfRightTimer)
-        {
-            if (averageRPM < 150)
+            if (!clearOfGround)
             {
-                if (currentRotation.x >= 90 && currentRotation.x <= 270 || currentRotation.z >= 90 && currentRotation.z <= 270)
-                {
-                    selfRightStartTime = Time.time;
-                    selfRightTimer = true;
-                }
-                else
-                {
-                    canSelfRight = false;
-                }
-            }
-        }
-        else
-        {
-            if (currentRotation.x >= 90 && currentRotation.x <= 270 || currentRotation.z >= 90 && currentRotation.z <= 270)
-            {
-                if (selfRightStartTime + selfRightDelay == Time.time)
-                {
-                    canSelfRight = true;
-                }
+                this.transform.position = Vector3.Lerp(currentPosition, hoverPosition, moveTime);
             }
             else
             {
-                selfRightTimer = false;
-                canSelfRight = false;
+                rotationTime += Time.deltaTime * 0.5f;
+                this.transform.rotation = Quaternion.Slerp(Quaternion.Euler(currentRotation), Quaternion.Euler(0, currentRotation.y, 0), rotationTime);
             }
+
+        }
+
+        if (rotationTime >= 1)
+        {
+            canSelfRight = true;
+            selfRighting = false;
+            rigidBody.isKinematic = false;
+        }
+
+        if (moveTime >= 1)
+        {
+            clearOfGround = true;
+        }
+        Debug.Log(rotationTime);
+    }
+
+    private void FixedUpdate()
+    {
+        Debug.DrawRay(this.transform.position, Vector3.up, Color.red);
+        Debug.DrawRay(this.transform.position, Vector3.down, Color.red);
+
+        if (Physics.Raycast(this.transform.position, Vector3.up, 0.5f) || (Physics.Raycast(this.transform.position, Vector3.down, 0.5f)))
+        {
+            isOnGround = true;
+        }
+        else
+        {
+            isOnGround = false;
         }
     }
 
@@ -159,14 +168,19 @@ public class CarController : MonoBehaviour
 
     public void SelfRight()
     {
-        if (canSelfRight && !selfRighting)
+        if (canSelfRight && averageRPM < 50 && isOnGround)
         {
             Debug.Log("Attempting to self right");
             selfRighting = true;
-            this.transform.rotation = Quaternion.Lerp(Quaternion.Euler(currentRotation), Quaternion.Euler(0, currentRotation.y, 0), 600f);
-            selfRighting = false;
-            selfRightTimer = false;
-
+            canSelfRight = false;
+            clearOfGround = false;
+            rigidBody.isKinematic = true;
+            currentPosition = this.transform.position;
+            hoverPosition = new Vector3(currentPosition.x, currentPosition.y + 0.25f, currentPosition.z);
+            currentRotation = this.transform.rotation.eulerAngles;
+            targetRotation = new Vector3(0, currentRotation.y, 0);
+            rotationTime = 0f;
+            moveTime = 0f;
         }
     }
 

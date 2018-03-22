@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class MapSelect : MonoBehaviour
 {
 
-    public Button debugButton;
-    public Button arenaButton;
-    public Button trackButton;
+    public Button testMapButton;
 
     void OnEnable()
     {
@@ -34,13 +32,9 @@ public class MapSelect : MonoBehaviour
         {
             //Debug.Log("Wanker");
             GameObject buttonHolder = GameObject.Find("ButtonHolder");
-            debugButton = buttonHolder.transform.Find("Debug").GetComponent<Button>();
-            arenaButton = buttonHolder.transform.Find("Arena").GetComponent<Button>();
-            trackButton = buttonHolder.transform.Find("Track").GetComponent<Button>();
+            testMapButton = buttonHolder.transform.Find("TestMap").GetComponent<Button>();
 
-            debugButton.onClick.AddListener(StoreMap);
-            arenaButton.onClick.AddListener(StoreMap);
-            trackButton.onClick.AddListener(StoreMap);
+            testMapButton.onClick.AddListener(StoreMap);
         }
     }
 }

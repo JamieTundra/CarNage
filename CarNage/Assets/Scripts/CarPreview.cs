@@ -107,6 +107,7 @@ public class CarPreview : MonoBehaviour
         currentPreview.GetComponent<Rigidbody>().isKinematic = true;
         currentPreview.GetComponent<CarController>().enabled = false;
         currentPreview.GetComponent<InputHandler>().enabled = false;
+        currentPreview.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
         player.carID = currentPreview.name;
     }
 

@@ -97,10 +97,13 @@ public class PreviewManager : MonoBehaviour
 
     public void GeneratePreview(Player p, Vector3 previewPoint)
     {
-        GameObject currentPreview = Instantiate(Resources.Load("Cars/DefaultCar"), new Vector3(0f, -0.5f, 0f), Quaternion.identity) as GameObject;
+        GameObject[] carHolder = Resources.LoadAll<GameObject>("Cars");
+
+        GameObject currentPreview = Instantiate(carHolder[0], new Vector3(0f, -0.5f, 0f), Quaternion.identity) as GameObject;
         currentPreview.transform.SetParent(GameObject.Find(p.playerName + "Preview").transform);
         currentPreview.transform.parent.gameObject.AddComponent<CarPreview>();
         currentPreview.transform.parent.gameObject.transform.position = previewPoint;
+        currentPreview.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
         currentPreview.GetComponent<Rigidbody>().isKinematic = true;
         currentPreview.GetComponent<CarController>().enabled = false;
         currentPreview.GetComponent<InputHandler>().enabled = false;
