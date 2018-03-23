@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Name: Payne_Trayne_2018
   m_EditorClassIdentifier: 
   m_carName: Payne_Trayne_2018
-  m_mass: 1500
-  m_maxWheelRPM: 6500
+  m_mass: 1000
   m_maxSpeed: 340
   m_turnAngle: 35
   m_turnSpeed: 5
-  m_torque: 800
+  m_torque: 500
   m_BrakeTorque: 30000
   m_canSelfRight: 0
+  m_criticalSpeed: 5
+  m_stepsBelow: 1
+  m_stepsAbove: 1

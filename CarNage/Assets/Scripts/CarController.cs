@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class CarController : MonoBehaviour
 {
@@ -12,16 +13,21 @@ public class CarController : MonoBehaviour
     // Car variables
     public Car carData;
     public float mass;
-    public float maxWheelRPM;
     public float maxSpeed;
     public float currentSpeed;
+    public float mphSpeed;
     public float turnAngle;
     public float turnSpeed;
     public float torque;
     public float brakeTorque;
     public Transform centerOfMass;
     public bool isOnGround;
-    float averageRPM;
+
+    // Steps
+    public float criticalSpeed;
+    public int stepsBelow;
+    public int stepsAbove;
+
     public bool canSelfRight = true;
     public bool selfRighting = false;
     public bool clearOfGround = false;
@@ -31,6 +37,8 @@ public class CarController : MonoBehaviour
     Vector3 targetRotation;
     float rotationTime;
     float moveTime;
+
+
 
 
     public void Awake()
@@ -46,21 +54,22 @@ public class CarController : MonoBehaviour
     private void InitReferences()
     {
         rigidBody = GetComponent<Rigidbody>();
-        mass = carData.m_mass;
-        rigidBody.mass = mass;
-        rigidBody.centerOfMass = centerOfMass.localPosition;
     }
 
     public void InitValues()
     {
-
-        maxWheelRPM = carData.m_maxWheelRPM;
         maxSpeed = carData.m_maxSpeed;
         turnAngle = carData.m_turnAngle;
         turnSpeed = carData.m_turnSpeed;
         torque = carData.m_torque;
         brakeTorque = carData.m_BrakeTorque;
+        criticalSpeed = carData.m_criticalSpeed;
+        stepsBelow = carData.m_stepsBelow;
+        stepsAbove = carData.m_stepsAbove;
+        mass = carData.m_mass;
 
+        rigidBody.mass = mass;
+        rigidBody.centerOfMass = centerOfMass.localPosition;
 
         this.GetComponent<InputHandler>().m_carInit = true;
     }
@@ -69,6 +78,10 @@ public class CarController : MonoBehaviour
     {
         GroundCheck();
         StartSelfRight();
+        InitValues();
+        wheelColliders[0].ConfigureVehicleSubsteps(criticalSpeed, stepsBelow, stepsAbove);
+        currentSpeed = rigidBody.velocity.magnitude;
+        mphSpeed = 2.23694f * rigidBody.velocity.magnitude;
     }
 
     private void StartSelfRight()
@@ -104,10 +117,10 @@ public class CarController : MonoBehaviour
 
     private void GroundCheck()
     {
-        Debug.DrawRay(this.transform.position, Vector3.up, Color.red);
-        Debug.DrawRay(this.transform.position, Vector3.down, Color.red);
+        Debug.DrawRay(this.transform.position, Vector3.up * 2f, Color.red);
+        Debug.DrawRay(this.transform.position, Vector3.down * 2f, Color.red);
 
-        if (Physics.Raycast(this.transform.position, Vector3.up, 0.5f) || (Physics.Raycast(this.transform.position, Vector3.down, 0.5f)))
+        if (Physics.Raycast(this.transform.position, Vector3.up, 2f) || (Physics.Raycast(this.transform.position, Vector3.down, 2f)))
         {
             isOnGround = true;
         }
@@ -126,25 +139,20 @@ public class CarController : MonoBehaviour
 
     public void Drive(float drivingForce)
     {
-        currentSpeed = Mathf.Round(2 * Mathf.PI * wheelColliders[0].radius * wheelColliders[0].rpm * 60 / 1000);
-
+    
         if (currentSpeed < maxSpeed)
         {
-            if (drivingForce > 0.05f)
+            foreach (WheelCollider wheel in wheelColliders)
             {
-                wheelColliders[0].motorTorque = torque;
-                wheelColliders[1].motorTorque = torque;
-            }
-            else if (drivingForce < -0.05f)
-            {
-                wheelColliders[0].motorTorque = -torque;
-                wheelColliders[1].motorTorque = -torque;
+                wheel.motorTorque = torque * drivingForce;
             }
         }
         else
         {
-            wheelColliders[0].motorTorque = 0;
-            wheelColliders[1].motorTorque = 0;
+            foreach (WheelCollider wheel in wheelColliders)
+            {
+                wheel.motorTorque = 0;
+            }
         }
     }
 
@@ -152,10 +160,8 @@ public class CarController : MonoBehaviour
     {
         if (handBrake)
         {
-            wheelColliders[0].brakeTorque = brakeTorque;
-            wheelColliders[1].brakeTorque = brakeTorque;
-            wheelColliders[2].brakeTorque = Mathf.Infinity;
-            wheelColliders[3].brakeTorque = Mathf.Infinity;
+            wheelColliders[2].brakeTorque = brakeTorque;
+            wheelColliders[3].brakeTorque = brakeTorque;
         }
         else
         {
@@ -168,7 +174,7 @@ public class CarController : MonoBehaviour
 
     public void SelfRight()
     {
-        if (canSelfRight && averageRPM < 50 && isOnGround)
+        if (canSelfRight && mphSpeed < 5 && isOnGround)
         {
             //Debug.Log("Attempting to self right");
             selfRighting = true;

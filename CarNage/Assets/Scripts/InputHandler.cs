@@ -35,19 +35,15 @@ public class InputHandler : MonoBehaviour
             {
                 m_isReversing = true;
             }
-            CarActions();
-        }
 
-    }
-
-    void CarActions()
-    {
             carController.Steer(m_steer);
             carController.Drive(m_drivingForce);
             carController.HandBrake(m_handBrake);
-        if (m_selfRight)
-        {
-            carController.SelfRight();
+
+            if (m_selfRight)
+            {
+                carController.SelfRight();
+            }
         }
     }
 }

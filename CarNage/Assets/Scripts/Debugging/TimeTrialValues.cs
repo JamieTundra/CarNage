@@ -17,21 +17,23 @@ public class TimeTrialValues : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    #region ZeroToSixtyValues
+    #region TrialTime
     [SerializeField]
-    public List<ZeroToSixty> ZeroToSixtyValues = new List<ZeroToSixty>();
+    public List<TrialTime> trialTime = new List<TrialTime>();
 
-    public void AddValue(ZeroToSixty v)
+    public void AddValue(TrialTime v)
     {
-        ZeroToSixtyValues.Add(v); // add new player
+        trialTime.Add(v); // add new player
     }
     #endregion
 }
 
 [System.Serializable]
-public class ZeroToSixty
+public class TrialTime
 {
     public float mass;
-    public float timeTaken;
+    public float timeTakenToSixty;
+    public float timeTakenToTwenty;
+    public float timeTakenToHundred;
     public float torque;
 }

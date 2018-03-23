@@ -10,12 +10,16 @@ public class TimeTrial : MonoBehaviour
     bool timerStarted = false;
     bool trialComplete = true;
     float startTime;
-    float endTime;
+    float twentyTime;
+    float sixtyTime;
+    float hundredTime;
     float timeToSixty;
     float chosenMass;
     float chosenToque;
     float maxMass;
     float minMass;
+    bool twentyDone = false;
+    bool sixtyDone = false;
     Transform timeTrialStart;
     GameObject car;
     CarController carController;
@@ -48,28 +52,15 @@ public class TimeTrial : MonoBehaviour
     void InitTimeTrial()
     {
         car.GetComponent<InputHandler>().enabled = false;
-        carController.maxWheelRPM = 1500;
         chosenMass = carController.rigidBody.mass;
         chosenToque = carController.torque;
         car.transform.position = GameObject.FindGameObjectWithTag("TimeTrialStart").transform.position;
-        carController.rigidBody.mass = chosenMass;
-    }
-
-    public void RandomValues()
-    {
-        carController.mass = Mathf.Round(UnityEngine.Random.Range(100, 1500));
-        carController.torque = Mathf.Round(UnityEngine.Random.Range(300, 1500));
     }
 
     private void Update()
     {
         if (!trialComplete)
         {
-            carController.rigidBody.isKinematic = false;
-            foreach (WheelCollider wheel in carController.wheelColliders)
-            {
-                wheel.enabled = true;
-            }
             if (!timerStarted)
             {
                 timerStarted = true;
@@ -77,44 +68,40 @@ public class TimeTrial : MonoBehaviour
                 //Debug.Log("Time Trial Started");
             }
 
-            if (timerStarted && carController.currentSpeed < 60)
+            if (timerStarted && carController.mphSpeed < 100)
             {
                 carController.Drive(1);
             }
-            else if (timerStarted && carController.currentSpeed >= 60)
+
+            if (timerStarted && carController.mphSpeed >= 20 && !twentyDone)
             {
-                endTime = Time.time;
-                timeToSixty = endTime - startTime;
-
-                if (TimeTrialValues.instance.ZeroToSixtyValues.Count == 1)
-                {
-                    if (TimeTrialValues.instance.ZeroToSixtyValues[0].timeTaken > timeToSixty)
-                    {
-                        TimeTrialValues.instance.ZeroToSixtyValues.RemoveAt(0);
-                        ZeroToSixty v = new ZeroToSixty
-                        {
-                            mass = chosenMass,
-                            timeTaken = Mathf.Round(timeToSixty * 100f) / 100f,
-                            torque = chosenToque,
-                        };
-
-                        TimeTrialValues.instance.AddValue(v);
-                        trialComplete = true;
-                    }
-                }
-                else
-                {
-                    ZeroToSixty v = new ZeroToSixty
-                    {
-                        mass = chosenMass,
-                        timeTaken = Mathf.Round(timeToSixty * 100f) / 100f,
-                        torque = chosenToque,
-                    };
-
-                    TimeTrialValues.instance.AddValue(v);
-                    trialComplete = true;
-                }
+                twentyTime = Time.time - startTime;
+                twentyDone = true;
             }
+            else if (timerStarted && carController.mphSpeed >= 60 && !sixtyDone)
+            {
+                sixtyTime = Time.time - startTime;
+                sixtyDone = true;
+            }
+            else if (timerStarted && carController.mphSpeed >= 100)
+            {
+                hundredTime = Time.time - startTime;
+                TrialTime v = new TrialTime
+                {
+                    timeTakenToTwenty = twentyTime,
+                    timeTakenToSixty = sixtyTime,
+                    timeTakenToHundred = hundredTime,
+                    mass = chosenMass,
+                    torque = chosenToque,
+                };
+                TimeTrialValues.instance.AddValue(v);
+                Debug.Log("20: " + v.timeTakenToTwenty + " | 60: " + v.timeTakenToSixty + " | 100: " + v.timeTakenToHundred + " | Mass: " + v.mass + " | Torque: " + v.torque);
+                ResetTrial();
+            }
+        }
+        else
+        {
+            ResetTrial();
         }
 
     }
@@ -122,20 +109,25 @@ public class TimeTrial : MonoBehaviour
     public void StartTrial()
     {
         trialComplete = false;
+        carController.rigidBody.isKinematic = false;
     }
 
     public void ResetTrial()
     {
-        carController.rigidBody.isKinematic = true;
+        trialComplete = true;
         foreach (WheelCollider wheel in carController.wheelColliders)
         {
-            wheel.enabled = false;
+            wheel.motorTorque = 0;
         }
+        car.transform.rotation = Quaternion.Euler(0, 0, 0);
+        carController.rigidBody.isKinematic = true;
         timerStarted = false;
         chosenMass = carController.rigidBody.mass;
         chosenToque = carController.torque;
         carController.rigidBody.mass = chosenMass;
         car.transform.position = GameObject.FindGameObjectWithTag("TimeTrialStart").transform.position;
+        twentyDone = false;
+        sixtyDone = false;
     }
 
     private void OnGUI()
@@ -146,15 +138,17 @@ public class TimeTrial : MonoBehaviour
         style.fontSize = 15;
         style.fontStyle = FontStyle.Bold;
 
-        if (TimeTrialValues.instance.ZeroToSixtyValues.Count > 0)
-        {
-            GUI.Label(new Rect(10, 10, 100, 20), "Time Taken: " + TimeTrialValues.instance.ZeroToSixtyValues[0].timeTaken + " seconds", style);
-            GUI.Label(new Rect(10, 30, 100, 20), "Mass used: " + TimeTrialValues.instance.ZeroToSixtyValues[0].mass, style);
-            GUI.Label(new Rect(10, 50, 100, 20), "Torque used: " + TimeTrialValues.instance.ZeroToSixtyValues[0].torque, style);
-        }
+        GUIStyle boldBigger = new GUIStyle();
+        boldBigger.normal.textColor = Color.black;
+        boldBigger.fontSize = 25;
+        boldBigger.fontStyle = FontStyle.Bold;
 
-        GUI.Label(new Rect(10, 70, 100, 20), "Current Mass: " + carController.mass, style);
-        GUI.Label(new Rect(10, 90, 100, 20), "Current Torque: " + carController.torque, style);
+        GUI.Label(new Rect(10, 10, 100, 20), "Mass: " + carController.mass, style);
+        GUI.Label(new Rect(10, 30, 100, 20), "Torque: " + carController.torque, style);
+        GUI.Label(new Rect(10, 50, 100, 20), "CritSpeed: " + carController.criticalSpeed, style);
+        GUI.Label(new Rect(10, 70, 100, 20), "Belowstep: " + carController.stepsBelow, style);
+        GUI.Label(new Rect(10, 90, 100, 20), "Abovestep: " + carController.stepsAbove, style);
+        GUI.Label(new Rect(250, 110, 100, 20), string.Format("Speed: {0:0.00} mph", carController.mphSpeed), boldBigger);
     }
 }
 
