@@ -43,6 +43,7 @@ public class CameraManager : MonoBehaviour
             CameraData c = new CameraData
             {
                 cameraName = ("Player" + (i + 1) + "Camera"),
+                cameraPlayer = i +1,
                 cameraCar = GameObject.FindGameObjectWithTag("Player" + (i + 1)),
             };
             CameraManager.instance.AddCamera(c);
@@ -87,7 +88,6 @@ public class CameraManager : MonoBehaviour
         CameraController controller = currentCamera.AddComponent<CameraController>();
         controller.lookAtTarget = camera.cameraCar.transform.Find("Meshes/CamRig/CamLookAtTarget");
         controller.positionTarget = camera.cameraCar.transform.Find("Meshes/CamRig/CamPosition");
-        controller.sideView = camera.cameraCar.transform.Find("Meshes/CamRig/CamSidePosition");
     }
 
     #region Cameras
@@ -105,6 +105,7 @@ public class CameraManager : MonoBehaviour
     {
         public string cameraName;
         public GameObject cameraCar;
+        public float cameraPlayer;
     }
     #endregion
 }

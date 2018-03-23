@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour
     public float m_steer;
     public float m_drivingForce;
     public bool m_handBrake;
+    public bool m_isReversing;
     public bool m_selfRight;
     public int m_controllerID;
     CarController carController;
@@ -30,7 +31,10 @@ public class InputHandler : MonoBehaviour
             //m_drivingForce = Mathf.RoundToInt(Input.GetAxis(m_controllerID + "Triggers"));
             m_handBrake = Input.GetButton(m_controllerID + "XButton");
             m_selfRight = Input.GetButton(m_controllerID + "YButton");
-
+            if (m_drivingForce < -0.1)
+            {
+                m_isReversing = true;
+            }
             CarActions();
         }
 
@@ -38,17 +42,12 @@ public class InputHandler : MonoBehaviour
 
     void CarActions()
     {
-        if (!carController.selfRighting)
-        {
             carController.Steer(m_steer);
-            carController.Drive(m_handBrake, m_drivingForce);
-            carController.Brake(m_handBrake);
-        }
-
+            carController.Drive(m_drivingForce);
+            carController.HandBrake(m_handBrake);
         if (m_selfRight)
         {
             carController.SelfRight();
         }
-
     }
 }

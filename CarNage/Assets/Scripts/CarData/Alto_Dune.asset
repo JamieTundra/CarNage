@@ -11,10 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce6bb8ad04e09448b4799dd24b3147a, type: 3}
   m_Name: Alto_Dune
   m_EditorClassIdentifier: 
-  m_carName: Payne_Trayne_2018
-  m_mass: 150
-  m_maxWheelRPM: 900
+  m_carName: Alto_Dune
+  m_mass: 500
+  m_maxWheelRPM: 3000
   m_turnForce: 50
-  m_maxTorque: 600
+  m_maxTorque: 1200
   m_maxBrakeTorque: 30000
   m_canSelfRight: 0

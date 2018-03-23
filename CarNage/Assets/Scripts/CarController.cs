@@ -6,8 +6,6 @@ public class CarController : MonoBehaviour
 {
     // Car parts
     public WheelCollider[] wheelColliders = new WheelCollider[4];
-    public Transform[] tireMeshes = new Transform[4];
-    public Transform centerOfMass;
     public Rigidbody rigidBody;
 
 
@@ -15,10 +13,13 @@ public class CarController : MonoBehaviour
     public Car carData;
     public float mass;
     public float maxWheelRPM;
-    public float maxTorque;
-    public float turnForce;
-    public float maxBrakeTorque;
+    public float maxSpeed;
     public float currentSpeed;
+    public float turnAngle;
+    public float turnSpeed;
+    public float torque;
+    public float brakeTorque;
+    public Transform centerOfMass;
     public bool isOnGround;
     float averageRPM;
     public bool canSelfRight = true;
@@ -30,11 +31,6 @@ public class CarController : MonoBehaviour
     Vector3 targetRotation;
     float rotationTime;
     float moveTime;
-
-    // Debugging
-    [HideInInspector]
-    public GUIStyle style;
-    public bool debugMode;
 
 
     public void Awake()
@@ -50,22 +46,32 @@ public class CarController : MonoBehaviour
     private void InitReferences()
     {
         rigidBody = GetComponent<Rigidbody>();
+        mass = carData.m_mass;
+        rigidBody.mass = mass;
+        rigidBody.centerOfMass = centerOfMass.localPosition;
     }
 
     public void InitValues()
     {
 
-        mass = carData.m_mass;
         maxWheelRPM = carData.m_maxWheelRPM;
-        maxTorque = carData.m_maxTorque;
-        turnForce = carData.m_turnForce;
-        maxBrakeTorque = carData.m_maxBrakeTorque;
-        rigidBody.centerOfMass = centerOfMass.transform.position;
-        rigidBody.mass = mass;
+        maxSpeed = carData.m_maxSpeed;
+        turnAngle = carData.m_turnAngle;
+        turnSpeed = carData.m_turnSpeed;
+        torque = carData.m_torque;
+        brakeTorque = carData.m_BrakeTorque;
+
+
         this.GetComponent<InputHandler>().m_carInit = true;
     }
 
     private void Update()
+    {
+        GroundCheck();
+        StartSelfRight();
+    }
+
+    private void StartSelfRight()
     {
         if (selfRighting)
         {
@@ -94,10 +100,9 @@ public class CarController : MonoBehaviour
         {
             clearOfGround = true;
         }
-        Debug.Log(rotationTime);
     }
 
-    private void FixedUpdate()
+    private void GroundCheck()
     {
         Debug.DrawRay(this.transform.position, Vector3.up, Color.red);
         Debug.DrawRay(this.transform.position, Vector3.down, Color.red);
@@ -114,48 +119,43 @@ public class CarController : MonoBehaviour
 
     public void Steer(float steer)
     {
-        float finalAngle = steer * turnForce;
-        wheelColliders[0].steerAngle = finalAngle;
-        wheelColliders[1].steerAngle = finalAngle;
+        float finalAngle = steer * turnAngle;
+        wheelColliders[0].steerAngle = Mathf.Lerp(wheelColliders[0].steerAngle, finalAngle, Time.deltaTime * turnSpeed);
+        wheelColliders[1].steerAngle = Mathf.Lerp(wheelColliders[1].steerAngle, finalAngle, Time.deltaTime * turnSpeed);
     }
 
-    public void Drive(bool handBrake, float drivingForce)
+    public void Drive(float drivingForce)
     {
-        currentSpeed = 2.23694f * rigidBody.velocity.magnitude;
+        currentSpeed = Mathf.Round(2 * Mathf.PI * wheelColliders[0].radius * wheelColliders[0].rpm * 60 / 1000);
 
-        if (currentSpeed != 0)
+        if (currentSpeed < maxSpeed)
         {
-            //Debug.Log("Current Speed: " + Mathf.Round(currentSpeed) + " MPH");
-        }
-
-
-        for (int i = 0; i < wheelColliders.Length; i++)
-        {
-            averageRPM += wheelColliders[i].rpm;
-        }
-
-        averageRPM = averageRPM / 4;
-
-        if (averageRPM <= maxWheelRPM)
-        {
-            wheelColliders[0].motorTorque = drivingForce * maxTorque;
-            wheelColliders[1].motorTorque = drivingForce * maxTorque;
+            if (drivingForce > 0.05f)
+            {
+                wheelColliders[0].motorTorque = torque;
+                wheelColliders[1].motorTorque = torque;
+            }
+            else if (drivingForce < -0.05f)
+            {
+                wheelColliders[0].motorTorque = -torque;
+                wheelColliders[1].motorTorque = -torque;
+            }
         }
         else
         {
-            foreach (WheelCollider wheel in wheelColliders)
-            {
-                wheel.motorTorque = 0;
-            }
+            wheelColliders[0].motorTorque = 0;
+            wheelColliders[1].motorTorque = 0;
         }
     }
 
-    public void Brake(bool handBrake)
+    public void HandBrake(bool handBrake)
     {
         if (handBrake)
         {
-            wheelColliders[2].brakeTorque = maxBrakeTorque;
-            wheelColliders[3].brakeTorque = maxBrakeTorque;
+            wheelColliders[0].brakeTorque = brakeTorque;
+            wheelColliders[1].brakeTorque = brakeTorque;
+            wheelColliders[2].brakeTorque = Mathf.Infinity;
+            wheelColliders[3].brakeTorque = Mathf.Infinity;
         }
         else
         {
@@ -170,7 +170,7 @@ public class CarController : MonoBehaviour
     {
         if (canSelfRight && averageRPM < 50 && isOnGround)
         {
-            Debug.Log("Attempting to self right");
+            //Debug.Log("Attempting to self right");
             selfRighting = true;
             canSelfRight = false;
             clearOfGround = false;
@@ -182,34 +182,6 @@ public class CarController : MonoBehaviour
             rotationTime = 0f;
             moveTime = 0f;
         }
-    }
-
-    void OnGUI()
-    {
-        if (debugMode)
-        {
-            style.normal.textColor = Color.white;
-            style.fontSize = 16;
-
-            // Debugging labels
-            GUI.Label(new Rect(10, 10, 1500, 50), "Max Torque: " + maxTorque, style);
-            GUI.Label(new Rect(10, 30, 1500, 50), "Turn Force: " + turnForce, style);
-            GUI.Label(new Rect(10, 50, 1500, 50), "Mass: " + mass, style);
-            GUI.Label(new Rect(10, 70, 1500, 50), "Current Speed: " + currentSpeed + " MPH", style);
-            //GUI.Label(new Rect(10, 70, 1500, 50), "Health: " + health, style);
-            //GUI.Label(new Rect(10, 90, 1500, 50), "Damage: " + damage, style);
-            //GUI.Label(new Rect(10, 110, 1500, 50), "Immune Status: " + isImmune, style);
-            //GUI.Label(new Rect(10, 130, 1500, 50), "Immune Timer: " + immuneTimer, style);
-            //GUI.Label(new Rect(10, 150, 1500, 50), "Handbrake Applied: " + handBrake, style);
-
-
-            //GUI.Label(new Rect(10, 130, 500, 50), "Health: " + health, style);
-        }
-    }
-
-    void ReloadScene()
-    {
-
     }
 }
 

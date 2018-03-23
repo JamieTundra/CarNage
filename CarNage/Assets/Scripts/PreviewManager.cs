@@ -103,10 +103,14 @@ public class PreviewManager : MonoBehaviour
         currentPreview.transform.SetParent(GameObject.Find(p.playerName + "Preview").transform);
         currentPreview.transform.parent.gameObject.AddComponent<CarPreview>();
         currentPreview.transform.parent.gameObject.transform.position = previewPoint;
-        currentPreview.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
+        currentPreview.transform.localScale = new Vector3(1f, 1f, 1f);
         currentPreview.GetComponent<Rigidbody>().isKinematic = true;
         currentPreview.GetComponent<CarController>().enabled = false;
         currentPreview.GetComponent<InputHandler>().enabled = false;
+        foreach (CarWheel wheel in currentPreview.GetComponentsInChildren<CarWheel>())
+        {
+            wheel.enabled = false;
+        }
         p.carID = currentPreview.name;
     }
 

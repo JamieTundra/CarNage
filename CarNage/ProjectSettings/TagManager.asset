@@ -16,6 +16,9 @@ TagManager:
   - Player4
   - TimeTrialStart
   - TimeTrialValues
+  - Checkpoint
+  - FinishLine
+  - Tire
   layers:
   - Default
   - TransparentFX

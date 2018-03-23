@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Name: DM_Martial
   m_EditorClassIdentifier: 
   m_carName: DM_Martial
-  m_mass: 250
-  m_maxWheelRPM: 750
-  m_turnForce: 50
-  m_maxTorque: 600
+  m_mass: 650
+  m_maxWheelRPM: 3000
+  m_turnForce: 20
+  m_maxTorque: 700
   m_maxBrakeTorque: 30000
   m_canSelfRight: 0

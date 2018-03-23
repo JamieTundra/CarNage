@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Name: Rooivan_605_Shinkoku
   m_EditorClassIdentifier: 
   m_carName: Rooivan_605_Shinkoku
-  m_mass: 400
-  m_maxWheelRPM: 750
-  m_turnForce: 55
-  m_maxTorque: 800
+  m_mass: 1500
+  m_maxWheelRPM: 3000
+  m_turnForce: 10
+  m_maxTorque: 400
   m_maxBrakeTorque: 30000
   m_canSelfRight: 0

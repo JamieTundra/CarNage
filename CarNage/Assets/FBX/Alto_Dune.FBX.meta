@@ -1,0 +1,193 @@
+fileFormatVersion: 2
+guid: 983837b7ed3ecf24bb9ce57407bb7751
+timeCreated: 1521664528
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: AltoLeftFrontBrake
+    100004: AltoLeftFrontSandTyre
+    100006: AltoLeftFrontWheelRimSand
+    100008: AltoLeftRearBrake
+    100010: AltoLeftRearSandTyre
+    100012: AltoLeftRearWheelRimSand
+    100014: AltoRightFrontBrake
+    100016: AltoRightFrontSandTyre
+    100018: AltoRightFrontWheelRimSand
+    100020: AltoRightRearBrake
+    100022: AltoRightRearSandTyre
+    100024: AltoRightRearWheelRimSand
+    100026: Driver seat
+    100028: Engine
+    100030: FrontFloodLightholder
+    100032: LeftExhaust
+    100034: LeftFrontSuspension
+    100036: RearSuspension
+    100038: RightExhaust
+    100040: RollCage
+    100042: RoofFloodLights
+    100044: SteeringWheel
+    400000: //RootNode
+    400002: AltoLeftFrontBrake
+    400004: AltoLeftFrontSandTyre
+    400006: AltoLeftFrontWheelRimSand
+    400008: AltoLeftRearBrake
+    400010: AltoLeftRearSandTyre
+    400012: AltoLeftRearWheelRimSand
+    400014: AltoRightFrontBrake
+    400016: AltoRightFrontSandTyre
+    400018: AltoRightFrontWheelRimSand
+    400020: AltoRightRearBrake
+    400022: AltoRightRearSandTyre
+    400024: AltoRightRearWheelRimSand
+    400026: Driver seat
+    400028: Engine
+    400030: FrontFloodLightholder
+    400032: LeftExhaust
+    400034: LeftFrontSuspension
+    400036: RearSuspension
+    400038: RightExhaust
+    400040: RollCage
+    400042: RoofFloodLights
+    400044: SteeringWheel
+    2300000: //RootNode
+    2300002: AltoLeftFrontBrake
+    2300004: AltoLeftFrontSandTyre
+    2300006: AltoLeftFrontWheelRimSand
+    2300008: AltoLeftRearBrake
+    2300010: AltoLeftRearSandTyre
+    2300012: AltoLeftRearWheelRimSand
+    2300014: AltoRightFrontBrake
+    2300016: AltoRightFrontSandTyre
+    2300018: AltoRightFrontWheelRimSand
+    2300020: AltoRightRearBrake
+    2300022: AltoRightRearSandTyre
+    2300024: AltoRightRearWheelRimSand
+    2300026: Driver seat
+    2300028: Engine
+    2300030: FrontFloodLightholder
+    2300032: LeftExhaust
+    2300034: LeftFrontSuspension
+    2300036: RearSuspension
+    2300038: RightExhaust
+    2300040: RollCage
+    2300042: RoofFloodLights
+    2300044: SteeringWheel
+    3300000: //RootNode
+    3300002: AltoLeftFrontBrake
+    3300004: AltoLeftFrontSandTyre
+    3300006: AltoLeftFrontWheelRimSand
+    3300008: AltoLeftRearBrake
+    3300010: AltoLeftRearSandTyre
+    3300012: AltoLeftRearWheelRimSand
+    3300014: AltoRightFrontBrake
+    3300016: AltoRightFrontSandTyre
+    3300018: AltoRightFrontWheelRimSand
+    3300020: AltoRightRearBrake
+    3300022: AltoRightRearSandTyre
+    3300024: AltoRightRearWheelRimSand
+    3300026: Driver seat
+    3300028: Engine
+    3300030: FrontFloodLightholder
+    3300032: LeftExhaust
+    3300034: LeftFrontSuspension
+    3300036: RearSuspension
+    3300038: RightExhaust
+    3300040: RollCage
+    3300042: RoofFloodLights
+    3300044: SteeringWheel
+    4300000: Alto
+    4300002: AltoLeftFrontBrake
+    4300004: AltoLeftFrontSandTyre
+    4300006: AltoLeftFrontWheelRimSand
+    4300008: AltoLeftRearBrake
+    4300010: AltoLeftRearSandTyre
+    4300012: AltoLeftRearWheelRimSand
+    4300014: AltoRightFrontBrake
+    4300016: AltoRightFrontSandTyre
+    4300018: AltoRightFrontWheelRimSand
+    4300020: AltoRightRearBrake
+    4300022: AltoRightRearSandTyre
+    4300024: AltoRightRearWheelRimSand
+    4300026: Driver seat
+    4300028: Engine
+    4300030: FrontFloodLightholder
+    4300032: LeftExhaust
+    4300034: LeftFrontSuspension
+    4300036: RoofFloodLights
+    4300038: SteeringWheel
+    4300040: RearSuspension
+    4300042: RollCage
+    4300044: RightExhaust
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

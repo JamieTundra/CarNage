@@ -50,7 +50,7 @@ public class TimeTrial : MonoBehaviour
         car.GetComponent<InputHandler>().enabled = false;
         carController.maxWheelRPM = 1500;
         chosenMass = carController.rigidBody.mass;
-        chosenToque = carController.maxTorque;
+        chosenToque = carController.torque;
         car.transform.position = GameObject.FindGameObjectWithTag("TimeTrialStart").transform.position;
         carController.rigidBody.mass = chosenMass;
     }
@@ -58,7 +58,7 @@ public class TimeTrial : MonoBehaviour
     public void RandomValues()
     {
         carController.mass = Mathf.Round(UnityEngine.Random.Range(100, 1500));
-        carController.maxTorque = Mathf.Round(UnityEngine.Random.Range(300, 1500));
+        carController.torque = Mathf.Round(UnityEngine.Random.Range(300, 1500));
     }
 
     private void Update()
@@ -79,7 +79,7 @@ public class TimeTrial : MonoBehaviour
 
             if (timerStarted && carController.currentSpeed < 60)
             {
-                carController.Drive(false, 1);
+                carController.Drive(1);
             }
             else if (timerStarted && carController.currentSpeed >= 60)
             {
@@ -133,7 +133,7 @@ public class TimeTrial : MonoBehaviour
         }
         timerStarted = false;
         chosenMass = carController.rigidBody.mass;
-        chosenToque = carController.maxTorque;
+        chosenToque = carController.torque;
         carController.rigidBody.mass = chosenMass;
         car.transform.position = GameObject.FindGameObjectWithTag("TimeTrialStart").transform.position;
     }
@@ -154,7 +154,7 @@ public class TimeTrial : MonoBehaviour
         }
 
         GUI.Label(new Rect(10, 70, 100, 20), "Current Mass: " + carController.mass, style);
-        GUI.Label(new Rect(10, 90, 100, 20), "Current Torque: " + carController.maxTorque, style);
+        GUI.Label(new Rect(10, 90, 100, 20), "Current Torque: " + carController.torque, style);
     }
 }
 

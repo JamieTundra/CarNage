@@ -7,8 +7,8 @@ public class LevelManager : MonoBehaviour
 
     #region Singleton
     public LevelManager instance;
-    //public List<Transform> spawnPoints = new List<Transform>();
-    //public GameObject spawnHolder;
+    public List<Transform> startPoints = new List<Transform>();
+    public GameObject startPointHolder;
 
 
     private void Awake()
@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        //InitialiseSpawnPoints();
+        InitialiseStartPoints();
 
         foreach (Player p in PlayerManager.instance.Players)
         {
@@ -36,24 +36,25 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    /*void InitialiseSpawnPoints()
+    void InitialiseStartPoints()
     {
-        spawnHolder = GameObject.Find("SpawnPointHolder");
-        for (int i = 0; i < spawnHolder.transform.childCount; i++)
+        startPointHolder = GameObject.Find("StartPointHolder");
+        for (int i = 0; i < startPointHolder.transform.childCount; i++)
         {
-            spawnPoints.Add(spawnHolder.transform.GetChild(i));
+            startPoints.Add(startPointHolder.transform.GetChild(i));
         }
-    }*/
+    }
 
     void SpawnPlayer(Player p)
     {
-        //Transform chosenSpawn = spawnPoints[p.controllerID - 1];
+        Transform chosenSpawn = startPoints[p.controllerID - 1];
         //Debug.Log(chosenSpawn.position);
         string carName = p.carID.Substring(0, (p.carID.Length - 7));
         GameObject chosenCar = Resources.Load("Cars/" + carName) as GameObject;
-        GameObject player = Instantiate(chosenCar, new Vector3(0, 0, 0), Quaternion.Euler(0, -90, 0));
+        GameObject player = Instantiate(chosenCar, chosenSpawn.transform.localPosition, Quaternion.identity);
         player.tag = p.playerName;
         player.transform.SetParent((GameObject.Find(p.playerName + "Holder").transform));
+        player.AddComponent<CurrentRace>();
     }
 
     #endregion
