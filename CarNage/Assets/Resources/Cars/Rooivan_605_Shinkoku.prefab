@@ -1274,92 +1274,24 @@ MonoBehaviour:
   - {fileID: 146726163096015202}
   - {fileID: 146456501802414862}
   - {fileID: 146158442941694348}
-  tireMeshes:
-  - {fileID: 4035998904095464}
-  - {fileID: 4090541617361736}
-  - {fileID: 4644039599393840}
-  - {fileID: 4722666229137098}
-  centerOfMass: {fileID: 4274921179734804}
   rigidBody: {fileID: 0}
   carData: {fileID: 11400000, guid: f41503721663a424dac0ec9888a60cc5, type: 2}
   mass: 0
-  maxWheelRPM: 0
-  maxTorque: 0
-  turnForce: 0
-  maxBrakeTorque: 0
+  maxSpeed: 0
   currentSpeed: 0
+  mphSpeed: 0
+  turnAngle: 0
+  turnSpeed: 0
+  torque: 0
+  brakeTorque: 0
+  centerOfMass: {fileID: 4274921179734804}
   isOnGround: 0
+  criticalSpeed: 0
+  stepsBelow: 0
+  stepsAbove: 0
   canSelfRight: 1
   selfRighting: 0
   clearOfGround: 0
-  style:
-    m_Name: 
-    m_Normal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Hover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Active:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Focused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnNormal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnHover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnActive:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnFocused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Margin:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Padding:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Overflow:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Font: {fileID: 0}
-    m_FontSize: 0
-    m_FontStyle: 0
-    m_Alignment: 0
-    m_WordWrap: 0
-    m_RichText: 1
-    m_TextClipping: 0
-    m_ImagePosition: 0
-    m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
-    m_StretchWidth: 1
-    m_StretchHeight: 0
-  debugMode: 0
 --- !u!114 &114925891456668310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1374,6 +1306,7 @@ MonoBehaviour:
   m_steer: 0
   m_drivingForce: 0
   m_handBrake: 0
+  m_isReversing: 0
   m_selfRight: 0
   m_controllerID: 0
   m_carInit: 0

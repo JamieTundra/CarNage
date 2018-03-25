@@ -1307,15 +1307,18 @@ MonoBehaviour:
   rigidBody: {fileID: 0}
   carData: {fileID: 11400000, guid: 6d1e86f03c66fa94cb0e576fb6161d92, type: 2}
   mass: 0
-  maxWheelRPM: 0
   maxSpeed: 0
   currentSpeed: 0
+  mphSpeed: 0
   turnAngle: 0
   turnSpeed: 0
   torque: 0
   brakeTorque: 0
   centerOfMass: {fileID: 4929237273502512}
   isOnGround: 0
+  criticalSpeed: 0
+  stepsBelow: 0
+  stepsAbove: 0
   canSelfRight: 1
   selfRighting: 0
   clearOfGround: 0

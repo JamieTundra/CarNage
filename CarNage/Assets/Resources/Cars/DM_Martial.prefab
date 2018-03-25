@@ -1271,6 +1271,7 @@ MonoBehaviour:
   m_steer: 0
   m_drivingForce: 0
   m_handBrake: 0
+  m_isReversing: 0
   m_selfRight: 0
   m_controllerID: 0
   m_carInit: 0
@@ -1290,92 +1291,24 @@ MonoBehaviour:
   - {fileID: 146723919437291106}
   - {fileID: 146153054900813088}
   - {fileID: 146316002003789350}
-  tireMeshes:
-  - {fileID: 4084121908903174}
-  - {fileID: 4745828210049408}
-  - {fileID: 4221095919268500}
-  - {fileID: 4233104665312808}
-  centerOfMass: {fileID: 4244474965269828}
   rigidBody: {fileID: 0}
   carData: {fileID: 11400000, guid: 6d1e86f03c66fa94cb0e576fb6161d92, type: 2}
   mass: 0
-  maxWheelRPM: 0
-  maxTorque: 0
-  turnForce: 0
-  maxBrakeTorque: 0
+  maxSpeed: 0
   currentSpeed: 0
+  mphSpeed: 0
+  turnAngle: 0
+  turnSpeed: 0
+  torque: 0
+  brakeTorque: 0
+  centerOfMass: {fileID: 4244474965269828}
   isOnGround: 0
+  criticalSpeed: 0
+  stepsBelow: 0
+  stepsAbove: 0
   canSelfRight: 1
   selfRighting: 0
   clearOfGround: 0
-  style:
-    m_Name: 
-    m_Normal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Hover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Active:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Focused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnNormal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnHover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnActive:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnFocused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Margin:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Padding:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Overflow:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Font: {fileID: 0}
-    m_FontSize: 0
-    m_FontStyle: 0
-    m_Alignment: 0
-    m_WordWrap: 0
-    m_RichText: 1
-    m_TextClipping: 0
-    m_ImagePosition: 0
-    m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
-    m_StretchWidth: 1
-    m_StretchHeight: 0
-  debugMode: 0
 --- !u!146 &146153054900813088
 WheelCollider:
   m_ObjectHideFlags: 1

@@ -19,6 +19,6 @@ MonoBehaviour:
   m_torque: 500
   m_BrakeTorque: 30000
   m_canSelfRight: 0
-  m_criticalSpeed: 5
-  m_stepsBelow: 1
-  m_stepsAbove: 1
+  m_criticalSpeed: 50
+  m_stepsBelow: 12
+  m_stepsAbove: 15
